@@ -1,12 +1,12 @@
 import './App.css';
-
-import Task from './Pages/task/Task.jsx';
+import Routers from './Routers/index.js';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <Task/>
-    </div>
+    <BrowserRouter>
+      <Routers />
+    </BrowserRouter>
   );
 }
 

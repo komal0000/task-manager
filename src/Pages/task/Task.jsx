@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, doc, updateDoc } from 'firebase/firestore';
 import db from "../../firebase";
 import './task.css'
 import { statuses } from '../../Constants';
-import ListTask from '../../Components/ListTask';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import Tasks from '../../Components/Tasks';
 
 const Task = () => {
     const [showPopup, setShowPopup] = useState(false);
@@ -12,6 +13,32 @@ const Task = () => {
         title: '',
         organization: null
     });
+    const [tasks, setTasks] = useState([]);
+    const [selectedTask, setSelectedTask] = useState(null);
+    const [newStatus, setNewStatus] = useState('');
+
+    useEffect(() => {
+        const unsubscribe = onSnapshot(collection(db, "tasks"), (snapshot) => {
+            const tasksData = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setTasks(tasksData);
+            console.log(tasks);
+
+        });
+        return () => unsubscribe();
+    }, []);
+
+    const handleStatusChange = async (taskId) => {
+        try {
+            const taskDocRef = doc(db, 'tasks', taskId);
+            await updateDoc(taskDocRef, { status: newStatus });
+            setSelectedTask(null);
+        } catch (e) {
+            console.error(e);
+        }
+    }
     const togglePopup = () => {
         setShowPopup(!showPopup);
     }
@@ -36,7 +63,10 @@ const Task = () => {
         }
     }
 
-    
+    const handleEditClick = (task) => {
+        setSelectedTask(task);
+        setNewStatus(task.status);
+    }
     return (
         <div className='container'>
             <div className="head">
@@ -47,7 +77,14 @@ const Task = () => {
                     Add task
                 </button>
             </div>
-            <ListTask/>
+            <div className="category">
+                {
+                    statuses.map((status, index) => (
+                    <Tasks key={index} status={status} tasks={tasks} onEditClick ={handleEditClick} />
+                    ))
+                }
+            </div>
+
             {showPopup && (
                 <div className="popup">
                     <div className="popup-inner">
@@ -81,7 +118,26 @@ const Task = () => {
                     </div>
                 </div>
             )}
-        
+            {selectedTask && (
+                <div className="popup">
+                    <div className="popup-inner">
+                        <h3>Change Status for {selectedTask.title}</h3>
+                        <select value={newStatus} onChange={(e) => setNewStatus(e.target.value)} className='form-control'>
+                            {
+                                statuses.map((status,index) =>(
+                                    <option key={index} value={status}>{status}</option>
+                                ))
+                            }
+                    
+                        </select>
+                        <div className="botton mt-2">
+                            <button onClick={() => handleStatusChange(selectedTask.id)} className='btn btn-sm btn-primary' style={{ marginRight: "10px" }}>Change Status</button>
+                            <button onClick={() => setSelectedTask(null)} className='btn btn-sm btn-secondary'>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </div>
     )
 }
