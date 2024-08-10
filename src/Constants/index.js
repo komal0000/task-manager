@@ -1,0 +1,1 @@
+export const statuses = ["Pending", "Seen", "Ontest", "Tested", "Backlog", "Finished", "Updated"];

@@ -40,3 +40,7 @@
   display: flex;
   column-gap: 40px;
 }  
+.category{
+  display: flex;
+  justify-content: space-between;
+}

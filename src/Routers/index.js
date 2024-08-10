@@ -1,9 +1,18 @@
-const Routers = () =>{
-    return (
-        <div>
+import { useRoutes } from "react-router-dom"
+import Login from "../Login/Login"
+import Task from "../Pages/task/Task"
 
-        </div>
-    )
+const Routers = () =>{
+   return useRoutes ([
+    {
+        path : 'login',
+        element : <Login/>
+    },
+    {
+        path : 'task',
+        element : <Task/>
+    }
+   ])
 }
 
 export default Routers

@@ -1,5 +1,6 @@
 import './App.css';
-import Task from './Pages/Task';
+
+import Task from './Pages/task/Task.jsx';
 
 function App() {
   return (
