@@ -5,6 +5,10 @@ import Task from "../Pages/task/Task"
 const Routers = () =>{
    return useRoutes ([
     {
+        path :'/',
+        element:<Login/>
+    },
+    {
         path : 'login',
         element : <Login/>
     },
