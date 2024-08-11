@@ -4,8 +4,10 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 const SingleTask = ({ task, onEditClick }) => {
     return (
-        <div className="item">
-            {task.title}
+        <div className="d-flex justify-content-between">
+            <span>
+                {task.title}
+            </span>
             <FontAwesomeIcon
                 icon={faEdit}
                 onClick={() => onEditClick(task)}

@@ -223,7 +223,7 @@ const Task = () => {
                     <FontAwesomeIcon icon={faPlus} /> Add Task
                 </button>
             </div>
-            <div className="task-categories shadow" style={{height:'60vh'}}>
+            <div className="task-categories " >
                 {
                     statuses.map((status, index) => (
                         <Tasks key={index} status={status} tasks={tasks} onEditClick={handleEditClick} />

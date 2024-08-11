@@ -3,7 +3,7 @@ import SingleTask from './SingleTask';
 
 const Tasks = ({ status, tasks, onEditClick }) => {
     return (
-        <div className={status}>
+        <div className={status} style={{width:"300px"}}>
             <div className="title" style={{fontWeight:"600"}}>
                 {status}
             </div>
