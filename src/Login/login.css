@@ -3,10 +3,11 @@
     background-color: white;
     padding: 30px;
 }
-.loghead{
+.head{
     display: flex;
     justify-content: center;
     font-size: 30px;
+    margin-bottom: 20px;
     font-weight: 600;
 }
 input{
@@ -34,8 +35,4 @@ input{
     flex-direction: column;
     align-items: center;
     font-size: 14px;
-}
-.logtext{
-    display: flex;
-    justify-content: center;
 }
