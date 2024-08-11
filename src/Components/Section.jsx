@@ -1,10 +1,10 @@
 import React from 'react';
 import SingleTask from './SingleTask';
 
-const Tasks = ({ status, tasks, onEditClick }) => {
+const Section = ({ status, tasks, onEditClick }) => {
     return (
-        <div className={status} style={{width:"300px"}}>
-            <div className="title" style={{fontWeight:"600"}}>
+        <div className={status} >
+            <div className="title">
                 {status}
             </div>
             <div className="data">
@@ -16,4 +16,4 @@ const Tasks = ({ status, tasks, onEditClick }) => {
     );
 };
 
-export default Tasks;
+export default Section;
