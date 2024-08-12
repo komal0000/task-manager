@@ -28,7 +28,7 @@ const Login = () => {
           </div>
           <div className="row">
             <div className="col-md-12 mb-2">
-              <label htmlFor="Email">Username</label>
+              <label htmlFor="Email">Email</label>
               <input
                 type="email"
                 value={email}
