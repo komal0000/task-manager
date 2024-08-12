@@ -61,8 +61,8 @@ const Task = () => {
           />
         ))}
       </div>
-
-      {showPopup && <AddTask close={toogleAdd} db={db} />}
+    
+      {showPopup && <AddTask closeAdd={toogleAdd} db={db} />}
 
       {selectedTask && <EditTask selectedTask={selectedTask} db={db} closeEdit={()=>{setSelectedTask(null)}}/>}
     </div>

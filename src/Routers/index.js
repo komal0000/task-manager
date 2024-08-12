@@ -15,7 +15,7 @@ const Routers = () =>{
     },
     {
         path : 'task',
-        element : <Task/>
+        element : <Task/>,
     }
    ])
 }

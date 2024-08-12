@@ -3,7 +3,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 
-const AddTask = ({ db, close }) => {
+const AddTask = ({ db,closeAdd }) => {
   const [formData, setFormData] = useState({
     title: "",
     organization: "",
@@ -25,7 +25,7 @@ const AddTask = ({ db, close }) => {
         organization: formData.organization,
         status: "Pending",
       });
-      close(false);
+      closeAdd(false);
       setFormData({ title: "", organization: "" });
     } catch (e) {
       console.log(e);
@@ -34,10 +34,11 @@ const AddTask = ({ db, close }) => {
 
   return (
     <div className="popup">
+      <div className="popup-back" onClick={closeAdd}></div>
       <div className="popup-inner">
         <div className="popup-header bg-white text-dark sticky-top px-3 pt-3 d-flex align-items-center justify-content-between">
           <h6 className="m-0">Add New Task</h6>
-          <button className="close-btn" onClick={close}>
+          <button className="close-btn" onClick={closeAdd}>
             <FontAwesomeIcon icon={faTimes} />
           </button>
         </div>
@@ -68,7 +69,8 @@ const AddTask = ({ db, close }) => {
                 required
               />
             </div>
-            <div className="form-actions sticky-bottom bg-white">
+
+            <div className="form-actions bg-white">
               <button type="submit" className="bg-white text-primary">
                 Add Task
               </button>
