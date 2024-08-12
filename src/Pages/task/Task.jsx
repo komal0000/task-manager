@@ -11,7 +11,7 @@ import "./task.css";
 import { statuses } from "../../Constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
-import Section from "../../Components/Section";
+import Section from "./Components/Section";
 
 const Task = () => {
   const [showPopup, setShowPopup] = useState(false);
