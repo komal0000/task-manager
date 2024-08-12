@@ -22,7 +22,7 @@ const EditTask = ({ selectedTask, closeEdit, db }) => {
 
       <div className="popup-inner">
         <div className="popup-header bg-white text-dark sticky-top px-3 pt-3 d-flex align-items-center justify-content-between">
-          <h6 className="m-0">Change Status for {selectedTask.title}</h6>
+          <h6 className="m-0">Change Status</h6>
           <button className="close-btn" onClick={closeEdit}>
             <FontAwesomeIcon icon={faTimes} />
           </button>
@@ -40,6 +40,16 @@ const EditTask = ({ selectedTask, closeEdit, db }) => {
               </option>
             ))}
           </select>
+          <hr />
+          <div className="form-group">
+            <label htmlFor="">Organization</label>
+            <div className="form-control">{selectedTask.organization}</div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="">Organization</label>
+            <div className="form-control">{selectedTask.title}</div>
+          </div>
+
           <div className="form-actions bg-white">
             <button
               onClick={() => handleStatusChange(selectedTask.id)}
