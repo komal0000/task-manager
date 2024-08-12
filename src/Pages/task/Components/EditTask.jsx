@@ -29,24 +29,26 @@ const EditTask = ({ selectedTask, closeEdit, db }) => {
         </div>
         <hr />
         <div className="p-3">
-          <select
-            value={newStatus}
-            onChange={(e) => setNewStatus(e.target.value)}
-            className="form-control"
-          >
-            {statuses.map((status, index) => (
-              <option key={index} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
-          <hr />
+          <div className="form-group">
+            <label htmlFor="">Status</label>
+            <select
+              value={newStatus}
+              onChange={(e) => setNewStatus(e.target.value)}
+              className="form-control"
+            >
+              {statuses.map((status, index) => (
+                <option key={index} value={status}>
+                  {status}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="form-group">
             <label htmlFor="">Organization</label>
             <div className="form-control">{selectedTask.organization}</div>
           </div>
           <div className="form-group">
-            <label htmlFor="">Organization</label>
+            <label htmlFor="">Description</label>
             <div className="form-control">{selectedTask.title}</div>
           </div>
 
