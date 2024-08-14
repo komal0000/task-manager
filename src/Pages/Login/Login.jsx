@@ -7,25 +7,34 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); 
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError(""); 
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/task');
       console.log("User logged in");
     } catch (error) {
+      setError("Failed to log in. Please check your email and password.");
       console.error("Error logging in:", error);
     }
   };
 
   return (
     <div className="main">
-      <div className="container shadow  rounded">
+      <div className="container shadow rounded">
         <form onSubmit={handleLogin}>
           <div className="head">
             Login
           </div>
+          {error && (
+            <div className="alert alert-danger" role="alert">
+              {error}
+            </div>
+          )}
           <div className="row">
             <div className="col-md-12 mb-2">
               <label htmlFor="Email">Email</label>
@@ -52,7 +61,6 @@ const Login = () => {
         </form>
       </div>
     </div>
-
   );
 };
 
