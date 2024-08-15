@@ -1,7 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
+import {addDoc, collection } from "firebase/firestore";
+import {getDownloadURL, ref,getStorage, uploadBytes} from "firebase/storage";
+
 import { useAuth } from "../../../Context/AuthContext";
 import { getCollectionName } from "../../../Constants";
 
@@ -11,10 +13,9 @@ const AddTask = ({ db,closeAdd }) => {
     organization: "",
 
   });
+  const [image,setImage] = useState(null);
+  const storage = getStorage();
   const {user} = useAuth();
-
-
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -25,12 +26,19 @@ const AddTask = ({ db,closeAdd }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let imageUrl = "";
+    if(image){
+      const imageRef = ref(storage,`images/${image.name}`);
+      const snapshot = await uploadBytes(imageRef,image);
+      imageUrl = await getDownloadURL(snapshot.ref);
+    }
     try {
       await addDoc(collection(db,getCollectionName()), {
         title: formData.title,
         organization: formData.organization,
         status: "Pending",
         user: user.email,
+        imageUrl,
       });
       closeAdd(false);
       setFormData({ title: "", organization: "" });
@@ -38,7 +46,6 @@ const AddTask = ({ db,closeAdd }) => {
       console.log(e);
     }
   };
-
   return (
     <div className="popup">
       <div className="popup-back" onClick={closeAdd}></div>
@@ -76,7 +83,10 @@ const AddTask = ({ db,closeAdd }) => {
                 required
               />
             </div>
-
+            <div className="form-group">
+              <label htmlFor="image">Image</label>
+              <input type="file" name="Image" id="image" className="form-control" onChange={(e)=>setImage(e.target.files[0])}/>
+            </div>
             <div className="form-actions bg-white">
               <button type="submit" className="bg-white text-primary">
                 Add Task
