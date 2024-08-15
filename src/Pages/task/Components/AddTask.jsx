@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {addDoc, collection } from "firebase/firestore";
 import {getDownloadURL, ref,getStorage, uploadBytes} from "firebase/storage";
-
 import { useAuth } from "../../../Context/AuthContext";
 import { getCollectionName } from "../../../Constants";
+import $ from "jquery";
 
 const AddTask = ({ db,closeAdd }) => {
   const [formData, setFormData] = useState({
@@ -48,6 +48,9 @@ const AddTask = ({ db,closeAdd }) => {
       console.log(e);
     }
   };
+  useEffect (()=>{
+    $('.dropify').dropify();
+  },[])
   return (
     <div className="popup">
       <div className="popup-back" onClick={closeAdd}></div>
@@ -87,7 +90,7 @@ const AddTask = ({ db,closeAdd }) => {
             </div>
             <div className="form-group">
               <label htmlFor="image">Image</label>
-              <input type="file" name="Image" id="image" className="form-control" onChange={(e)=>setImage(e.target.files[0])}/>
+              <input type="file" name="Image" id="image" className="form-control dropify" onChange={(e)=>setImage(e.target.files[0])}/>
             </div>
             <div className="form-actions bg-white">
               <button type="submit" className="bg-white text-primary">

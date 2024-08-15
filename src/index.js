@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from './Context/AuthContext';
+import 'dropify/dist/css/dropify.min.css';
+import 'dropify/dist/js/dropify.min.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
