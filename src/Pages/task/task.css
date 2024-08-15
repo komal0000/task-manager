@@ -286,6 +286,7 @@ padding: 10px;
   cursor: pointer;
   border-radius: 2px;
   z-index: 1000; 
+  top: 8px;
 }
 
 .sidebar-toggle:hover {

@@ -2,6 +2,7 @@ import { useRoutes, Navigate } from "react-router-dom";
 import Task from "../Pages/task/Task";
 import Login from "../Pages/Login/Login";
 import { useAuth } from "../Context/AuthContext";
+import ResetPassword from "../Pages/task/Components/ResetPassword";
 
 const Routers = () => {
   const {user} = useAuth();
@@ -14,6 +15,10 @@ const Routers = () => {
     {
       path: '/',
       element: user ? <Task /> : <Navigate to="/login" />,
+    },
+    {
+      path: '/reset',
+      element: user ? <ResetPassword /> : <Navigate to="/login" />,
     }
   ];
 

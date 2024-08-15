@@ -39,9 +39,11 @@ const AddTask = ({ db,closeAdd }) => {
         status: "Pending",
         user: user.email,
         imageUrl,
+        created_at : new Date(),
       });
       closeAdd(false);
       setFormData({ title: "", organization: "" });
+      setImage(null);
     } catch (e) {
       console.log(e);
     }
