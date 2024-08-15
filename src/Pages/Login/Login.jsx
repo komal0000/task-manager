@@ -15,7 +15,7 @@ const Login = () => {
     setError(""); 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/task');
+      navigate('/');
       console.log("User logged in");
     } catch (error) {
       setError("Failed to log in. Please check your email and password.");

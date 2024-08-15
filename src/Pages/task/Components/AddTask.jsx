@@ -2,12 +2,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
+import { useAuth } from "../../../Context/AuthContext";
 
 const AddTask = ({ db,closeAdd }) => {
   const [formData, setFormData] = useState({
     title: "",
     organization: "",
+
   });
+  const {user} = useAuth();
+
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +29,7 @@ const AddTask = ({ db,closeAdd }) => {
         title: formData.title,
         organization: formData.organization,
         status: "Pending",
+        user: user.email,
       });
       closeAdd(false);
       setFormData({ title: "", organization: "" });
