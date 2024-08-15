@@ -97,6 +97,8 @@
       color: #5a6268;
       overflow: hidden;
       font-size: 0.8rem;
+      display: flex;
+      justify-content: space-between;
     }
 
     span{
@@ -249,4 +251,43 @@ padding: 10px;
       font-size: 0.8rem;
     }
   }
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(154, 152, 152, 0.5);
+    z-index: 3;
+}
+.sidebar-inner{
+  width: 200px;
+  background-color: #343a40;
+  color: white;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+.log-out{
+  position: fixed;
+  bottom: 5px;
+  left: 105px;
+}
+.sidebar-toggle {
+  position: fixed;
+  background-color: #343a40;
+  color: white;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 2px;
+  z-index: 1000; 
+}
+
+.sidebar-toggle:hover {
+  background-color: #495057;
 }

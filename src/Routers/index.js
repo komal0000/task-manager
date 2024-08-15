@@ -9,7 +9,7 @@ const Routers = () => {
     
     {
       path: 'login',
-      element: user ? <Navigate to="/task" /> : <Login />,
+      element: user ? <Navigate to="/" /> : <Login />,
     },
     {
       path: '/',

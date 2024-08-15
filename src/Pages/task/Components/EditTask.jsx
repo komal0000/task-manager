@@ -2,24 +2,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { getCollectionName, statuses } from "../../../Constants";
-import { doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 const EditTask = ({ selectedTask, closeEdit, db }) => {
   const [newStatus, setNewStatus] = useState(selectedTask.status);
+  const [newTitle,setTitle] = useState(selectedTask.title);
+  const [ newOrganization,setOrganization] = useState(selectedTask.organization);
+  
   const handleStatusChange = async (taskId) => {
     try {
       const taskDocRef = doc(db,  getCollectionName(), taskId);
-      await updateDoc(taskDocRef, { status: newStatus });
+      await updateDoc(taskDocRef, { status: newStatus , title: newTitle , organization:newOrganization});
       closeEdit();
     } catch (e) {
       console.error(e);
     }
   };
-
+  const deleteTask = async(taskId) =>{
+    try{
+      const taskDocRef = doc(db, getCollectionName(),taskId);
+      await deleteDoc(taskDocRef);
+      closeEdit();
+    }catch (e){
+      console.error(e);
+    }
+  }
   return (
     <div className="popup">
       <div className="popup-back" onClick={closeEdit}></div>
-
       <div className="popup-inner">
         <div className="popup-header bg-white text-dark sticky-top px-3 pt-3 d-flex align-items-center justify-content-between">
           <h6 className="m-0">Change Status</h6>
@@ -45,14 +55,17 @@ const EditTask = ({ selectedTask, closeEdit, db }) => {
           </div>
           <div className="form-group">
             <label htmlFor="">Organization</label>
-            <div className="form-control">{selectedTask.organization}</div>
+            <input type="text" name="task" id="task" onChange={(e)=>setOrganization(e.target.value)} className="form-control" value={newOrganization}/>
           </div>
           <div className="form-group">
             <label htmlFor="">Description</label>
-            <div className="form-control">{selectedTask.title}</div>
+            <input type="text" name="task" id="task" onChange={(e)=>setTitle(e.target.value)} className="form-control" value={newTitle}/>
           </div>
 
           <div className="form-actions bg-white">
+            <button onClick={()=>deleteTask(selectedTask.id)} className="text-danger">
+              Delete
+            </button>
             <button
               onClick={() => handleStatusChange(selectedTask.id)}
               className="text-primary"

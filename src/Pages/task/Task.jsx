@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
 import {
   collection,
-  addDoc,
   onSnapshot,
-  doc,
-  updateDoc,
 } from "firebase/firestore";
 import db from "../../firebase";
 import "./task.css";
 import { getCollectionName, statuses } from "../../Constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Section from "./Components/Section";
 import AddTask from "./Components/AddTask";
 import EditTask from "./Components/EditTask";
+import SideBar from "./Components/SideBar";
 
 const Task = () => {
   const [showPopup, setShowPopup] = useState(false);
-
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [sidebar, setSidebar] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, getCollectionName()), (snapshot) => {
@@ -32,8 +30,9 @@ const Task = () => {
     return () => unsubscribe();
   }, []);
 
-  
-
+  const toggleSidebar = () => {
+    setSidebar(!sidebar);
+  }
   const toogleAdd = () => {
     setShowPopup(!showPopup);
   };
@@ -45,7 +44,11 @@ const Task = () => {
   return (
     <div className="task-container mt-2">
       <div className="task-header ">
-        <h5>Task Manager</h5>
+          <button className="sidebar-toggle" onClick={toggleSidebar}>
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+          {sidebar && <SideBar />}
+          <h5 style={{marginLeft:'40px'}}>Task Manager</h5>
         <button className="btn btn-primary btn-sm" onClick={toogleAdd}>
           <FontAwesomeIcon icon={faPlus} /> Add Task
         </button>
@@ -61,10 +64,10 @@ const Task = () => {
           />
         ))}
       </div>
-    
+
       {showPopup && <AddTask closeAdd={toogleAdd} db={db} />}
 
-      {selectedTask && <EditTask selectedTask={selectedTask} db={db} closeEdit={()=>{setSelectedTask(null)}}/>}
+      {selectedTask && <EditTask selectedTask={selectedTask} db={db} closeEdit={() => { setSelectedTask(null) }} />}
     </div>
   );
 };
