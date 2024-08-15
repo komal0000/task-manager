@@ -3,6 +3,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { useAuth } from "../../../Context/AuthContext";
+import { getCollectionName } from "../../../Constants";
 
 const AddTask = ({ db,closeAdd }) => {
   const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ const AddTask = ({ db,closeAdd }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, "tasks"), {
+      await addDoc(collection(db,getCollectionName()), {
         title: formData.title,
         organization: formData.organization,
         status: "Pending",

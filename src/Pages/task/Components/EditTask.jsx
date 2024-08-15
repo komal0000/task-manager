@@ -1,14 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { statuses } from "../../../Constants";
+import { getCollectionName, statuses } from "../../../Constants";
 import { doc, updateDoc } from "firebase/firestore";
 
 const EditTask = ({ selectedTask, closeEdit, db }) => {
   const [newStatus, setNewStatus] = useState(selectedTask.status);
   const handleStatusChange = async (taskId) => {
     try {
-      const taskDocRef = doc(db, "tasks", taskId);
+      const taskDocRef = doc(db,  getCollectionName(), taskId);
       await updateDoc(taskDocRef, { status: newStatus });
       closeEdit();
     } catch (e) {

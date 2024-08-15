@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import db from "../../firebase";
 import "./task.css";
-import { statuses } from "../../Constants";
+import { getCollectionName, statuses } from "../../Constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Section from "./Components/Section";
@@ -22,7 +22,7 @@ const Task = () => {
   const [selectedTask, setSelectedTask] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "tasks"), (snapshot) => {
+    const unsubscribe = onSnapshot(collection(db, getCollectionName()), (snapshot) => {
       const tasksData = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
