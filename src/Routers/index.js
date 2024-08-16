@@ -3,6 +3,7 @@ import Task from "../Pages/task/Task";
 import Login from "../Pages/Login/Login";
 import { useAuth } from "../Context/AuthContext";
 import ResetPassword from "../Pages/task/Components/ResetPassword";
+import Fix from "../Pages/Fixes/Fix";
 
 const Routers = () => {
   const {user} = useAuth();
