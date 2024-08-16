@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import {addDoc, collection } from "firebase/firestore";
+import {addDoc, collection, serverTimestamp } from "firebase/firestore";
 import {getDownloadURL, ref,getStorage, uploadBytes} from "firebase/storage";
 import { useAuth } from "../../../Context/AuthContext";
 import { getCollectionName } from "../../../Constants";
@@ -39,7 +39,8 @@ const AddTask = ({ db,closeAdd }) => {
         status: "Pending",
         user: user.email,
         imageUrl,
-        created_at : new Date(),
+        created_at : serverTimestamp() ,
+        updated_at : serverTimestamp() ,
       });
       closeAdd(false);
       setFormData({ title: "", organization: "" });
@@ -88,10 +89,10 @@ const AddTask = ({ db,closeAdd }) => {
                 required
               />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="image">Image</label>
               <input type="file" name="Image" id="image" className="form-control dropify" onChange={(e)=>setImage(e.target.files[0])}/>
-            </div>
+            </div> */}
             <div className="form-actions bg-white">
               <button type="submit" className="bg-white text-primary">
                 Add Task

@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { getCollectionName, statuses } from "../../../Constants";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 
 const EditTask = ({ selectedTask, closeEdit, db }) => {
   const [newStatus, setNewStatus] = useState(selectedTask.status);
@@ -12,7 +12,7 @@ const EditTask = ({ selectedTask, closeEdit, db }) => {
   const handleStatusChange = async (taskId) => {
     try {
       const taskDocRef = doc(db,  getCollectionName(), taskId);
-      await updateDoc(taskDocRef, { status: newStatus , title: newTitle , organization:newOrganization});
+      await updateDoc(taskDocRef, { status: newStatus , title: newTitle , organization:newOrganization, updated_at : serverTimestamp() ,});
       closeEdit();
     } catch (e) {
       console.error(e);

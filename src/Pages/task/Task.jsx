@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import {
   collection,
   onSnapshot,
+  orderBy,
+  query,
 } from "firebase/firestore";
 import db from "../../firebase";
 import "./task.css";
@@ -20,7 +22,11 @@ const Task = () => {
   const [sidebar, setSidebar] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, getCollectionName()), (snapshot) => {
+    const tasksQuery = query(
+      collection(db, getCollectionName()),
+      orderBy('created_at', 'desc')
+    );
+    const unsubscribe = onSnapshot(tasksQuery, (snapshot) => {
       const tasksData = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
