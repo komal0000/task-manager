@@ -58,6 +58,7 @@ const Login = () => {
               <button type="submit" className="btn btn-primary gradient-btn">Log In</button>
             </div>
           </div>
+          
         </form>
       </div>
     </div>
