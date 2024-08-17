@@ -64,7 +64,7 @@ const EditTask = ({ selectedTask, closeEdit, db }) => {
           </div>
           <div className="form-group">
               <label htmlFor="env">Env</label>
-              <input type="text" name="env" id="env" onChange={(e)=>setEnv(e.target.value)} value={newEnv} className="form-control" />
+              <textarea type="text" name="env" id="env" onChange={(e)=>setEnv(e.target.value)} value={newEnv} className="form-control" />
             </div>
           <div className="form-actions bg-white">
             <button onClick={()=>deleteTask(selectedTask.id)} className="text-danger">
