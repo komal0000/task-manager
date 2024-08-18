@@ -23,8 +23,8 @@ const SideBar = () => {
         <div className="content mt-5" >
           <div className="links" style={{display:"flex",flexDirection:"column",rowGap:"20px"}}>
             <Link to="/" style={{ textDecoration: "none", color: "white" }}>Task</Link>
-            <Link to='/reset' style={{ textDecoration: "none", color: "white" }}> Reset password
-            </Link>
+            {/* <Link to='/reset' style={{ textDecoration: "none", color: "white" }}> Reset password
+            </Link> */}
           </div>
 
           <div className="log-out">

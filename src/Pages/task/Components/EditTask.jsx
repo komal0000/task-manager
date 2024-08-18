@@ -7,12 +7,13 @@ import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 const EditTask = ({ selectedTask, closeEdit, db }) => {
   const [newStatus, setNewStatus] = useState(selectedTask.status);
   const [newTitle,setTitle] = useState(selectedTask.title);
+  const [newEnv,setEnv] = useState(selectedTask.env);
   const [ newOrganization,setOrganization] = useState(selectedTask.organization);
   
   const handleStatusChange = async (taskId) => {
     try {
       const taskDocRef = doc(db,  getCollectionName(), taskId);
-      await updateDoc(taskDocRef, { status: newStatus , title: newTitle , organization:newOrganization, updated_at : serverTimestamp() ,});
+      await updateDoc(taskDocRef, { status: newStatus , title: newTitle ,env:newEnv, organization:newOrganization, updated_at : serverTimestamp() ,});
       closeEdit();
     } catch (e) {
       console.error(e);
@@ -59,9 +60,12 @@ const EditTask = ({ selectedTask, closeEdit, db }) => {
           </div>
           <div className="form-group">
             <label htmlFor="">Description</label>
-            <input type="text" name="task" id="task" onChange={(e)=>setTitle(e.target.value)} className="form-control" value={newTitle}/>
+            <textarea type="text" name="task" id="task" onChange={(e)=>setTitle(e.target.value)} className="form-control" value={newTitle}/>
           </div>
-
+          <div className="form-group">
+              <label htmlFor="env">Env</label>
+              <textarea type="text" name="env" id="env" onChange={(e)=>setEnv(e.target.value)} value={newEnv} className="form-control" />
+            </div>
           <div className="form-actions bg-white">
             <button onClick={()=>deleteTask(selectedTask.id)} className="text-danger">
               Delete

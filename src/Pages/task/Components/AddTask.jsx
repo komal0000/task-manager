@@ -1,21 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import {addDoc, collection, serverTimestamp } from "firebase/firestore";
-import {getDownloadURL, ref,getStorage, uploadBytes} from "firebase/storage";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { getDownloadURL, ref, getStorage, uploadBytes } from "firebase/storage";
 import { useAuth } from "../../../Context/AuthContext";
 import { getCollectionName } from "../../../Constants";
 import $ from "jquery";
 
-const AddTask = ({ db,closeAdd }) => {
+const AddTask = ({ db, closeAdd }) => {
   const [formData, setFormData] = useState({
     title: "",
     organization: "",
+    env: "",
 
   });
-  const [image,setImage] = useState(null);
+  const [image, setImage] = useState(null);
   const storage = getStorage();
-  const {user} = useAuth();
+  const { user } = useAuth();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -27,20 +28,21 @@ const AddTask = ({ db,closeAdd }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let imageUrl = "";
-    if(image){
-      const imageRef = ref(storage,`images/${image.name}`);
-      const snapshot = await uploadBytes(imageRef,image);
+    if (image) {
+      const imageRef = ref(storage, `images/${image.name}`);
+      const snapshot = await uploadBytes(imageRef, image);
       imageUrl = await getDownloadURL(snapshot.ref);
     }
     try {
-      await addDoc(collection(db,getCollectionName()), {
+      await addDoc(collection(db, getCollectionName()), {
         title: formData.title,
         organization: formData.organization,
         status: "Pending",
+        env: formData.env,
         user: user.email,
         imageUrl,
-        created_at : serverTimestamp() ,
-        updated_at : serverTimestamp() ,
+        created_at: serverTimestamp(),
+        updated_at: serverTimestamp(),
       });
       closeAdd(false);
       setFormData({ title: "", organization: "" });
@@ -49,9 +51,9 @@ const AddTask = ({ db,closeAdd }) => {
       console.log(e);
     }
   };
-  useEffect (()=>{
+  useEffect(() => {
     $('.dropify').dropify();
-  },[])
+  }, [])
   return (
     <div className="popup">
       <div className="popup-back" onClick={closeAdd}></div>
@@ -79,7 +81,7 @@ const AddTask = ({ db,closeAdd }) => {
             </div>
             <div className="form-group">
               <label htmlFor="title">Task</label>
-              <textarea
+              <input
                 type="text"
                 name="title"
                 id="title"
@@ -88,6 +90,10 @@ const AddTask = ({ db,closeAdd }) => {
                 value={formData.title}
                 required
               />
+            </div>
+            <div className="form-group">
+              <label htmlFor="env">Env</label>
+              <textarea type="text" name="env" id="env" onChange={handleInputChange} value={formData.env} className="form-control" />
             </div>
             {/* <div className="form-group">
               <label htmlFor="image">Image</label>

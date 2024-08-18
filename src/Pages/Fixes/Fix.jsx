@@ -9,12 +9,8 @@ const Fix=()=>{
        .then((snapshot) => {
         snapshot.forEach(async (documentSnapshot) => {
             const data = documentSnapshot.data();
-  
-            // Check if 'created_at' or 'updated_at' fields are missing
             if (!data.created_at || !data.updated_at) {
               const docRef = doc(db, getCollectionName(), documentSnapshot.id);
-  
-              // Update the document with missing timestamps
               await updateDoc(docRef, {
                 created_at: data.created_at || serverTimestamp(),
                 updated_at: data.updated_at || serverTimestamp(),
