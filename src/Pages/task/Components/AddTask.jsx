@@ -3,7 +3,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useAuth } from "../../../Context/AuthContext";
-import { getCollectionName } from "../../../Constants";
+import { getCollectionName, uploadImageToCloudinary } from "../../../Constants";
 import axios from "axios";
 
 const AddTask = ({ db, closeAdd }) => {
@@ -32,18 +32,7 @@ const AddTask = ({ db, closeAdd }) => {
     }
   };
 
-  const uploadImageToCloudinary = async (images) => {
-    const uploads = images.map((image) => {
-      const formData = new FormData();
-      formData.append("file", image);
-      formData.append("upload_preset", "fp5cicub"); // Your Cloudinary upload preset
-      return axios.post(
-        `https://api.cloudinary.com/v1_1/dwclw3s0d/image/upload`, // Corrected endpoint
-        formData
-      ).then(res => res.data.url);
-    });
-    return Promise.all(uploads);
-  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -127,6 +116,7 @@ const AddTask = ({ db, closeAdd }) => {
                 className="form-control"
                 multiple
                 onChange={handleImage}
+                accept=".png,.jpg,.jpeg,.webp"
               />
             </div>
             <div className="form-actions bg-white">
