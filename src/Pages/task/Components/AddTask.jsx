@@ -87,7 +87,7 @@ const AddTask = ({ db, closeAdd }) => {
             </div>
             <div className="form-group">
               <label htmlFor="title">Task</label>
-              <input
+              <textarea
                 type="text"
                 name="title"
                 id="title"
