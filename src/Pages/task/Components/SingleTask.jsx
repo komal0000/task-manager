@@ -32,7 +32,7 @@ const SingleTask = ({ task, onEditClick }) => {
             </div>
             <hr className="my-1" />
             <div className="d-flex justify-content-between p-2">
-                <span>{task.title}</span>
+                <span className='span'>{task.title}</span>
             </div>
             <div className="row m-0">
                 {task.imageUrls && task.imageUrls.length > 0 && (
