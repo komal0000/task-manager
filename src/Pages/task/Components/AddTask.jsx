@@ -1,22 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { getDownloadURL, ref, getStorage, uploadBytes } from "firebase/storage";
 import { useAuth } from "../../../Context/AuthContext";
 import { getCollectionName } from "../../../Constants";
-import $ from "jquery";
+import axios from "axios";
 
 const AddTask = ({ db, closeAdd }) => {
   const [formData, setFormData] = useState({
     title: "",
     organization: "",
     env: "",
-
   });
-  const [image, setImage] = useState(null);
-  const storage = getStorage();
+  const [images, setImages] = useState([]);
   const { user } = useAuth();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -25,42 +23,61 @@ const AddTask = ({ db, closeAdd }) => {
     });
   };
 
+  const handleImage = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length <= 6) {
+      setImages(files);
+    } else {
+      alert('Cannot add more than 6 images at once');
+    }
+  };
+
+  const uploadImageToCloudinary = async (images) => {
+    const uploads = images.map((image) => {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", "fp5cicub"); // Your Cloudinary upload preset
+      return axios.post(
+        `https://api.cloudinary.com/v1_1/dwclw3s0d/image/upload`, // Corrected endpoint
+        formData
+      ).then(res => res.data.url);
+    });
+    return Promise.all(uploads);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let imageUrl = "";
-    if (image) {
-      const imageRef = ref(storage, `images/${image.name}`);
-      const snapshot = await uploadBytes(imageRef, image);
-      imageUrl = await getDownloadURL(snapshot.ref);
-    }
     try {
+      let imageUrls = [];
+      if (images.length > 0) {
+        imageUrls = await uploadImageToCloudinary(images);
+      }
+
       await addDoc(collection(db, getCollectionName()), {
         title: formData.title,
         organization: formData.organization,
         status: "Pending",
         env: formData.env,
         user: user.email,
-        imageUrl,
+        imageUrls, // Store an array of image URLs
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
       });
       closeAdd(false);
-      setFormData({ title: "", organization: "" });
-      setImage(null);
+      setFormData({ title: "", organization: "", env: "" });
+      setImages([]);
     } catch (e) {
-      console.log(e);
+      console.error('Error uploading images or adding task:', e);
     }
   };
-  useEffect(() => {
-    $('.dropify').dropify();
-  }, [])
+
   return (
     <div className="popup">
-      <div className="popup-back" onClick={closeAdd}></div>
+      <div className="popup-back" onClick={() => closeAdd(false)}></div>
       <div className="popup-inner">
         <div className="popup-header bg-white text-dark sticky-top px-3 pt-3 d-flex align-items-center justify-content-between">
           <h6 className="m-0">Add New Task</h6>
-          <button className="close-btn" onClick={closeAdd}>
+          <button className="close-btn" onClick={() => closeAdd(false)}>
             <FontAwesomeIcon icon={faTimes} />
           </button>
         </div>
@@ -93,12 +110,25 @@ const AddTask = ({ db, closeAdd }) => {
             </div>
             <div className="form-group">
               <label htmlFor="env">Env</label>
-              <textarea type="text" name="env" id="env" onChange={handleInputChange} value={formData.env} className="form-control" />
+              <textarea
+                name="env"
+                id="env"
+                onChange={handleInputChange}
+                value={formData.env}
+                className="form-control"
+              />
             </div>
-            {/* <div className="form-group">
-              <label htmlFor="image">Image</label>
-              <input type="file" name="Image" id="image" className="form-control dropify" onChange={(e)=>setImage(e.target.files[0])}/>
-            </div> */}
+            <div className="form-group">
+              <label htmlFor="images">Images</label>
+              <input
+                type="file"
+                name="images"
+                id="images"
+                className="form-control"
+                multiple
+                onChange={handleImage}
+              />
+            </div>
             <div className="form-actions bg-white">
               <button type="submit" className="bg-white text-primary">
                 Add Task
