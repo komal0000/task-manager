@@ -48,7 +48,7 @@ const AddTask = ({ db, closeAdd }) => {
         status: "Pending",
         env: formData.env,
         user: user.email,
-        imageUrls, // Store an array of image URLs
+        imageUrls, 
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
       });
