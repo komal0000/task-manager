@@ -17,10 +17,6 @@ const Routers = () => {
       path: '/',
       element: user ? <Task /> : <Navigate to="/login" />,
     },
-    {
-      path: '/reset',
-      element: user ? <ResetPassword /> : <Navigate to="/login" />,
-    }
   ];
 
   const routing = useRoutes(routes);

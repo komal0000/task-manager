@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { signOut } from 'firebase/auth'; // Correctly import signOut
-import { auth } from "../../../firebase"; // Ensure correct path to firebase.js
-import ResetPassword from './ResetPassword';
+import { signOut } from 'firebase/auth';
+import { auth } from "../../../firebase";
 import { Link } from 'react-router-dom';
-
-const SideBar = () => {
+const SideBar = ({ closeSidebar }) => {
   const handleLogout = () => {
-    signOut(auth) // Pass the auth object correctly
+    signOut(auth)
       .then(() => {
         console.log("User is logged out.");
       })
@@ -21,12 +19,9 @@ const SideBar = () => {
     <div className='sidebar'>
       <div className="sidebar-inner">
         <div className="content mt-5" >
-          <div className="links" style={{display:"flex",flexDirection:"column",rowGap:"20px"}}>
+          <div className="links" style={{ display: "flex", flexDirection: "column", rowGap: "20px" }}>
             <Link to="/" style={{ textDecoration: "none", color: "white" }}>Task</Link>
-            {/* <Link to='/reset' style={{ textDecoration: "none", color: "white" }}> Reset password
-            </Link> */}
           </div>
-
           <div className="log-out">
             <button className="btn btn-danger btn-sm" onClick={handleLogout}>
               <FontAwesomeIcon icon={faSignOutAlt} /> Logout

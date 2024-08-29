@@ -4,7 +4,7 @@ import { useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useAuth } from "../../../Context/AuthContext";
 import { getCollectionName, uploadImageToCloudinary } from "../../../Constants";
-import axios from "axios";
+
 
 const AddTask = ({ db, closeAdd }) => {
   const [formData, setFormData] = useState({
