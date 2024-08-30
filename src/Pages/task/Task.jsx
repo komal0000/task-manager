@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import db from "../../firebase";
 import "./task.css";
 import { getCollectionName, statuses } from "../../Constants";
@@ -24,7 +19,7 @@ const Task = () => {
   useEffect(() => {
     const tasksQuery = query(
       collection(db, getCollectionName()),
-      orderBy('created_at', 'desc')
+      orderBy("created_at", "desc"),
     );
     const unsubscribe = onSnapshot(tasksQuery, (snapshot) => {
       const tasksData = snapshot.docs.map((doc) => ({
@@ -45,21 +40,25 @@ const Task = () => {
   };
 
   const toogleAdd = () => {
-    setShowPopup(!showPopup); 
+    setShowPopup(!showPopup);
   };
 
   const handleEditClick = (task) => {
     setSelectedTask(task);
   };
   const handleClickOutside = (event) => {
-    if (sidebar && !event.target.closest('.sidebar-inner') && !event.target.closest('.sidebar-toggle')) {
+    if (
+      sidebar &&
+      !event.target.closest(".sidebar-inner") &&
+      !event.target.closest(".sidebar-toggle")
+    ) {
       closeSidebar();
     }
   };
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   });
 
@@ -70,7 +69,7 @@ const Task = () => {
           <FontAwesomeIcon icon={faBars} />
         </button>
         {sidebar && <SideBar closeSidebar={closeSidebar} />}
-        <h5 style={{ marginLeft: '40px' }}>Task Manager</h5>
+        <h5 style={{ marginLeft: "40px" }}>Task Manager</h5>
         <button className="btn btn-primary btn-sm" onClick={toogleAdd}>
           <FontAwesomeIcon icon={faPlus} /> Add Task
         </button>
