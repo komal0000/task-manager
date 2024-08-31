@@ -14,7 +14,6 @@
 .task-container::-webkit-scrollbar {
   width: 0.6rem;
   height: 0.6rem;
-
 }
 
 .task-container::-webkit-scrollbar-track {
@@ -36,7 +35,7 @@
   top: 0px;
   left: 0px;
   right: 0px;
-  padding: 10px  15px;
+  padding: 10px 15px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   background-color: white;
 }
@@ -81,43 +80,44 @@
   height: 100%;
   margin-right: 15px;
   padding: 15px;
-  .title{
+  .title {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding-bottom: 5px;
-    margin-bottom:5px;
+    margin-bottom: 5px;
     font-weight: 500;
   }
   .item {
     margin: 10px 0px 5px 0px;
-  
+
     border-radius: 5px;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
-    .item-title{
+    .item-title {
       font-weight: 600;
       color: #5a6268;
       overflow: hidden;
       font-size: 0.8rem;
       display: flex;
       justify-content: space-between;
-      align-items: center; 
-      white-space: nowrap; 
+      align-items: center;
+      white-space: nowrap;
       text-overflow: ellipsis;
       position: relative;
-      span{
-
+      span {
       }
-      svg{
-        position: absolute;right:0px; top:0px;
+      svg {
+        position: absolute;
+        right: 0px;
+        top: 0px;
         background-color: white;
         padding: 10px;
       }
     }
-    .span{
+    .span {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      flex-grow: 1; 
-      margin-right: 10px; 
+      flex-grow: 1;
+      margin-right: 10px;
       line-height: 1.5rem;
       white-space: pre-wrap;
       max-height: 4.5rem;
@@ -126,18 +126,16 @@
     span::-webkit-scrollbar {
       width: 0.1rem;
       height: 0.6rem;
-    
     }
-    
+
     span::-webkit-scrollbar-track {
       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     }
-    
+
     span::-webkit-scrollbar-thumb {
       background-color: rgb(67, 67, 67);
       outline: 1px solid #333333;
     }
-    
   }
 }
 
@@ -150,7 +148,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 3;
 }
-.popup-back{
+.popup-back {
   position: fixed;
   bottom: 0px;
   top: 0px;
@@ -198,19 +196,21 @@
 }
 
 .form-actions {
-text-align: right;
-padding: 10px;
- border-top: 1px solid rgba(0, 0, 0, 0.2);
- position: fixed; bottom: 0px;
- left: 0px;
- width: 500px;
- max-width: 100%;
+  text-align: right;
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 500px;
+  max-width: 100%;
 
- z-index: 3;
-  button{
+  z-index: 3;
+  button {
     border: none;
     font-weight: 600;
-    background: transparent;
+    margin-left: 0.5rem;
+    /* background: transparent; */
     font-size: 0.9rem;
   }
 }
@@ -242,10 +242,10 @@ padding: 10px;
   background-color: #5a6268;
 }
 
-@media(max-width:768px){
+@media (max-width: 768px) {
   .popup-inner {
     top: 100px;
-    border-radius: 10px 10px 0px 0px ;
+    border-radius: 10px 10px 0px 0px;
   }
   .task-categories > div {
     flex: 0 0 250px;
@@ -254,10 +254,10 @@ padding: 10px;
     height: 100%;
     margin-right: 15px;
     padding: 15px;
-    .title{
+    .title {
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       padding-bottom: 5px;
-      margin-bottom:5px;
+      margin-bottom: 5px;
       font-weight: 500;
     }
     .item {
@@ -270,15 +270,15 @@ padding: 10px;
   }
 }
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(154, 152, 152, 0.5);
-    z-index: 3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(154, 152, 152, 0.5);
+  z-index: 3;
 }
-.sidebar-inner{
+.sidebar-inner {
   width: 200px;
   background-color: #343a40;
   color: white;
@@ -289,7 +289,7 @@ padding: 10px;
   padding: 20px;
   transition: transform 0.3s ease;
 }
-.log-out{
+.log-out {
   position: fixed;
   bottom: 5px;
   left: 105px;
@@ -302,7 +302,7 @@ padding: 10px;
   padding: 6px;
   cursor: pointer;
   border-radius: 2px;
-  z-index: 1000; 
+  z-index: 1000;
   top: 8px;
 }
 

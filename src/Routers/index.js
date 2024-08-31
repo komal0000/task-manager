@@ -6,15 +6,14 @@ import ResetPassword from "../Pages/task/Components/ResetPassword";
 import Fix from "../Pages/Fixes/Fix";
 
 const Routers = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const routes = [
-    
     {
-      path: 'login',
+      path: "login",
       element: user ? <Navigate to="/" /> : <Login />,
     },
     {
-      path: '/',
+      path: "/",
       element: user ? <Task /> : <Navigate to="/login" />,
     },
   ];
