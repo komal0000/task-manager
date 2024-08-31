@@ -144,12 +144,12 @@ const EditTask = ({ selectedTask, closeEdit, db }) => {
                     alignItems: "self-start",
                   }}
                 >
-                  <img src={url} height={"250px"} width={"300px"} />
+                  <img src={url} height={"50px"} width={"50px"} />
                   <button
                     type="button"
                     className="btn btn-danger btn-sm"
                     onClick={() => handleDeleteImage(url)}
-                    style={{ fontSize: "32px", marginLeft: "1rem" }}
+                    style={{ fontSize: "10px"}}
                   >
                     <FontAwesomeIcon icon={faTrash} />
                   </button>

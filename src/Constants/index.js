@@ -31,3 +31,8 @@ export const uploadImageToCloudinary = async (images) => {
   return Promise.all(uploads);
 };
 
+
+
+export const yes=(msg=null)=>{
+  return prompt(msg??'Enter Yes to continue')==='yes';
+};

@@ -7,6 +7,7 @@ import { getCollectionName, uploadImageToCloudinary } from "../../../Constants";
 
 
 const AddTask = ({ db, closeAdd }) => {
+  const [lock,setLock]=useState(false);
   const [formData, setFormData] = useState({
     title: "",
     organization: "",
@@ -36,6 +37,11 @@ const AddTask = ({ db, closeAdd }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(lock){
+      console.log('locked');
+      return;
+    }
+    setLock(true);
     try {
       let imageUrls = [];
       if (images.length > 0) {
@@ -58,6 +64,9 @@ const AddTask = ({ db, closeAdd }) => {
     } catch (e) {
       console.error('Error uploading images or adding task:', e);
     }
+
+    setLock(false);
+
   };
 
   return (

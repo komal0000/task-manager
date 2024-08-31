@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCollectionName, statuses } from "../../../Constants";
+import { getCollectionName, statuses, yes } from "../../../Constants";
 
 import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -46,11 +46,13 @@ const SingleTask = ({ task, onEditClick }) => {
   };
 
   const deleteTask = async (taskId) => {
-    try {
-      const taskDocRef = doc(db, getCollectionName(), taskId);
-      await deleteDoc(taskDocRef);
-    } catch (e) {
-      console.error(e);
+    if(yes()){
+        try {
+          const taskDocRef = doc(db, getCollectionName(), taskId);
+          await deleteDoc(taskDocRef);
+        } catch (e) {
+          console.error(e);
+        }
     }
   };
 

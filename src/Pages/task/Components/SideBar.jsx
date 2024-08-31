@@ -21,16 +21,24 @@ const SideBar = ({ closeSidebar }) => {
         <div className="content mt-5">
           <div
             className="links"
-            style={{ display: "flex", flexDirection: "column", rowGap: "20px" }}
           >
+            <div>
             <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-              Task
+            <button className="btn text-start text-white ps-0" >
+              <FontAwesomeIcon icon={faSignOutAlt} /> Task
+            </button>
             </Link>
-          </div>
-          <div className="log-out">
-            <button className="btn btn-danger btn-sm" onClick={handleLogout}>
+
+            </div>
+            <div>
+
+            <button className="btn text-start text-white ps-0" onClick={handleLogout}>
               <FontAwesomeIcon icon={faSignOutAlt} /> Logout
             </button>
+            </div>
+          </div>
+          <div className="log-out">
+            
           </div>
         </div>
       </div>
