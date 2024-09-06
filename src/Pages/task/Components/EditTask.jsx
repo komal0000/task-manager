@@ -5,19 +5,19 @@ import {
   getCollectionName,
   statuses,
   uploadImageToCloudinary,
+  yes,
 } from "../../../Constants";
 import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 
 const EditTask = ({ selectedTask, closeEdit, db }) => {
   const [newStatus, setNewStatus] = useState(selectedTask.status);
   const [newTitle, setTitle] = useState(selectedTask.title);
-  const [newEnv, setEnv] = useState(selectedTask.env);
+  const [newEnv, setEnv] = useState(selectedTask.env??'');
   const [newOrganization, setOrganization] = useState(
     selectedTask.organization,
   );
-  const [imageUrls, setImageUrls] = useState(selectedTask.imageUrls);
+  const [imageUrls, setImageUrls] = useState(selectedTask.imageUrls??[]);
   const [newImages, setNewImages] = useState([]);
-  console.log(imageUrls);
 
   const handleDeleteImage = (url) => {
     setImageUrls(imageUrls.filter((imageUrl) => imageUrl !== url));
@@ -30,6 +30,7 @@ const EditTask = ({ selectedTask, closeEdit, db }) => {
       alert("Cannot add more than 6 images in total");
     }
   };
+  
   const handleStatusChange = async (taskId) => {
     try {
       let updatedImageUrls = [...imageUrls];
@@ -54,9 +55,11 @@ const EditTask = ({ selectedTask, closeEdit, db }) => {
   };
   const deleteTask = async (taskId) => {
     try {
-      const taskDocRef = doc(db, getCollectionName(), taskId);
-      await deleteDoc(taskDocRef);
-      closeEdit();
+      if(yes()){
+        const taskDocRef = doc(db, getCollectionName(), taskId);
+        await deleteDoc(taskDocRef);
+        closeEdit();
+      }
     } catch (e) {
       console.error(e);
     }

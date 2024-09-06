@@ -59,7 +59,7 @@ const SingleTask = ({ task, onEditClick }) => {
   return (
     <div className="item">
       <div className="p-2 d-flex justify-content-between align-items-center">
-        <span>{task.organization}</span>
+        <span className="org">{task.organization}</span>
         <div>
           <FontAwesomeIcon
             icon={faEdit}
