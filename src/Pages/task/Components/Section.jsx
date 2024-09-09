@@ -7,7 +7,6 @@ const Section = ({ status, tasks, onEditClick }) => {
       <div className="title">{status}</div>
       <div className="data">
         {tasks
-          .filter((task) => task.status === status)
           .map((task) => (
             <SingleTask key={task.id} task={task} onEditClick={onEditClick} />
           ))}

@@ -94,7 +94,7 @@ const SingleTask = ({ task, onEditClick }) => {
           ))}
       </div>
 
-      <Modal show={showModal} onHide={handleClose} centered>
+      <Modal show={showModal} size="lg" onHide={handleClose} centered>
         <Modal.Body>
           <img
             src={selectedImage}

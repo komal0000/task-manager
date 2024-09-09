@@ -80,7 +80,7 @@ const Task = () => {
           <Section
             key={index}
             status={status}
-            tasks={tasks}
+            tasks={tasks.filter((task) => task.status === status)}
             onEditClick={handleEditClick}
           />
         ))}
